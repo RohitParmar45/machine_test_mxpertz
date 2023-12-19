@@ -1,94 +1,116 @@
 import 'package:flutter/material.dart';
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: SignUpPage(),
-    );
-  }
-}
+import 'package:machine_test_mxpertz/curved/curved_app_bar.dart';
+import 'package:machine_test_mxpertz/main_page.dart';
 
 class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Register with Skenu',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(kToolbarHeight),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.yellow,
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20),
+            ),
           ),
-        ),
-        backgroundColor: Colors.yellow,
-      ),
-      body: Container(
-        color: Colors.blue,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            // crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              SizedBox(height: 20),
-              TextFieldWidget(
-                hintText: 'Username',
+          child: AppBar(
+            title: Text(
+              'Register with Skenu',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
               ),
-              SizedBox(height: 12),
-              TextFieldWidget(
-                hintText: 'Email',
-              ),
-              SizedBox(height: 12),
-              TextFieldWidget(
-                hintText: 'Password',
-                isPassword: true,
-              ),
-              SizedBox(height: 12),
-              TextFieldWidget(
-                hintText: 'Confirm Password',
-                isPassword: true,
-              ),
-              SizedBox(height: 16),
-              Row(
-                children: [
-                  Checkbox(
-                    value: false, // You can handle the state of the checkbox
-                    onChanged: (value) {
-                      // Handle the state change
-                    },
-                  ),
-                  Text(
-                    'I agree to the terms and conditions',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  // Handle the registration logic
-                  print('Register button pressed');
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.yellow,
-                ),
-                child: Container(
-                  height: 50,
-                  alignment: Alignment.center,
-                  child: Text(
-                    'Register',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            ),
+            backgroundColor: Colors.yellow,
+            elevation: 0, // Remove the shadow
           ),
         ),
       ),
+      body: SingleChildScrollView(
+        child: Container(
+          // Remove the color from here
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(height: 20),
+                const TextFieldWidget(
+                  hintText: 'Username',
+                  hintColor: Colors.white,
+                  textColor: Colors.white,
+                ),
+                SizedBox(height: 12),
+                const TextFieldWidget(
+                  hintText: 'Email',
+                  hintColor: Colors.white,
+                  textColor: Colors.white,
+                ),
+                SizedBox(height: 12),
+                const TextFieldWidget(
+                  hintText: 'Password',
+                  isPassword: true,
+                  hintColor: Colors.white,
+                  textColor: Colors.white,
+                ),
+                SizedBox(height: 12),
+                const TextFieldWidget(
+                  hintText: 'Confirm Password',
+                  hintColor: Colors.white,
+                  textColor: Colors.white,
+                  isPassword: true,
+                ),
+                SizedBox(height: 16),
+                Row(
+                  children: [
+                    Checkbox(
+                      value: false,
+                      onChanged: (value) {},
+                      fillColor: MaterialStateProperty.all(Colors.grey),
+                      checkColor: Colors.grey, // Color of the check icon
+                      activeColor: Colors.grey, // Color of the checkbox border
+                    ),
+                    const Text(
+                      'Agree to terms and conditions',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MainPage()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black,
+                  ),
+                  child: Container(
+                    height: 50,
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Register',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      // Set the background color of the Scaffold
+      backgroundColor: const Color.fromARGB(255, 1, 41, 74),
     );
   }
 }
@@ -96,11 +118,15 @@ class SignUpPage extends StatelessWidget {
 class TextFieldWidget extends StatelessWidget {
   final String hintText;
   final bool isPassword;
+  final Color hintColor;
+  final Color textColor;
 
   const TextFieldWidget({
     Key? key,
     required this.hintText,
     this.isPassword = false,
+    required this.hintColor,
+    required this.textColor,
   }) : super(key: key);
 
   @override
@@ -108,12 +134,12 @@ class TextFieldWidget extends StatelessWidget {
     return TextField(
       obscureText: isPassword,
       style: TextStyle(
-        color: Colors.white,
+        color: textColor,
       ),
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: TextStyle(
-          color: Colors.white54,
+          color: hintColor,
         ),
         filled: true,
         fillColor: Colors.black,

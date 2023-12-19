@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:machine_test_mxpertz/login_page.dart';
+import 'package:machine_test_mxpertz/signup_page.dart';
 
 class FirstPage extends StatelessWidget {
   @override
@@ -14,14 +16,17 @@ class FirstPage extends StatelessWidget {
             ),
           ),
           child: Column(
-            mainAxisAlignment: Alignment.bottomCenter, // Align at the bottom
+            mainAxisAlignment: MainAxisAlignment.end, // Align at the bottom
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
                 child: ElevatedButton(
                   onPressed: () {
                     // Handle Login with email button press
-                    print('Login with email pressed');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Colors.yellow, // Set button color
@@ -45,7 +50,10 @@ class FirstPage extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     // Handle Register button press
-                    print('Register pressed');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SignUpPage()),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Colors.blue[900], // Set button color
@@ -57,7 +65,7 @@ class FirstPage extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: 15),
                     child: Text(
                       'Register',
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 18, color: Colors.white),
                     ),
                   ),
                 ),
